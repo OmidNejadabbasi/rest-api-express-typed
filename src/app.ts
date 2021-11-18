@@ -1,5 +1,7 @@
 import express from 'express'
-const config = require('config');
+import config from 'config'
+import log from './logger'
+
 
 const port = config.get("port") as number;
 const host = config.get("host") as string;
@@ -11,5 +13,5 @@ app.use(express.urlencoded({ extended: false }));
 
 
 app.listen(port, host, () => {
-    console.log("Server listening on http://${host}:${port}");
+    log.info(`Server listening on http://${host}:${port}`);
 })
