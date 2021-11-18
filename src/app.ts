@@ -1,26 +1,15 @@
+import express from 'express'
+const config = require('config');
 
-function computeIntegral(a: number, b: number, p: number, fx: (n: number) => number) {
+const port = config.get("port") as number;
+const host = config.get("host") as string;
 
-    let step = (b - a) / p;
-    let integ = 0;
-    for (let i = 0; i < p; i++) {
-        integ += fx(a + i * step + step * .5) * step;
-    }
-    return integ;
+const app = express();
 
-}
+app.use(express.json())
+app.use(express.urlencoded({ extended: false }));
 
-console.log(computeIntegral(0, 4, 10000, (x) => {
-    return 1 / x;
-}))
 
-const str = 'omid is doing some typescript';
-console.log(str.search('o'));
-// search all 'o' s in str
-
-let queue: number[] = []
-
-queue.push(2);
-queue.push(3);
-queue.push(4);
-queue.push(5);
+app.listen(port, host, () => {
+    console.log("Server listening on http://${host}:${port}");
+})
