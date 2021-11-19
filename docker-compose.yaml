@@ -7,10 +7,35 @@ services:
       - PUID=1000
       - PGID=1000
     volumes:
-    - mongodb-restapi-typescript-express:/data/db
-    ports:
-      - 27017:27017
+      - mongodb-restapi-typescript-express:/data/db
+
     restart: unless-stopped
+
+    expose:
+      - 27017
+
+  node:
+    image: "node"
+    depends_on:
+      - mongodb
+    user: "node"
+    working_dir: /home/node/app
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - ./:/home/node/app
+    
+    command: "npm start"
+    ports:
+      - 1337:1337
+    
 
 volumes:
   mongodb-restapi-typescript-express:
+
+networks:
+  default:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.10.1.0/24
