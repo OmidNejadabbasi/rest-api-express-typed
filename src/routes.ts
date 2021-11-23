@@ -6,6 +6,8 @@ import { createUserSchema } from './schema/user.schema';
 
 export default function (app: Express) {
     app.get('/healthcheck', (req, res) => {
+        console.log("Healthcheck req!");
+
         res.sendStatus(200);
     })
 

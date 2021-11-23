@@ -11,19 +11,20 @@ services:
 
     restart: unless-stopped
 
-    expose:
-      - 27017
+    
 
   node:
     image: "node"
+    container_name: nodeapp
+
     depends_on:
       - mongodb
-    user: "node"
-    working_dir: /home/node/app
+
+    working_dir: /usr/node/app
     environment:
       - NODE_ENV=production
     volumes:
-      - ./:/home/node/app
+      - ./:/usr/node/app
     
     command: "npm start"
     ports:
