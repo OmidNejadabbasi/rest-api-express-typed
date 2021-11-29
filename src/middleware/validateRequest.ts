@@ -20,7 +20,7 @@ const validate = (schema: AnySchema) => async (
         return next();
 
     } catch (err) {
-        log.error(err);
+        log.error(err as object);
         res.status(409).send(err);
     }
 
